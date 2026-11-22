@@ -1,0 +1,13 @@
+SERVER_CONTEXT.md
+.env
+*.env
+*.log
+*.sqlitedb
+*.sqlite
+*.db
+*.jar
+node_modules/
+dist/
+build/
+tmp/
+.DS_Store
