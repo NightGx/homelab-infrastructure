@@ -1,0 +1,19 @@
+[Unit]
+Description=filedrive maintenance — trash retention, staging cleanup, cache eviction
+
+[Service]
+Type=oneshot
+User=filedrive
+Group=filedrive
+WorkingDirectory=/opt/filedrive
+EnvironmentFile=/etc/filedrive/filedrive.env
+ExecStart=/usr/local/bin/node --disable-warning=ExperimentalWarning /opt/filedrive/bin/maintenance.js
+NoNewPrivileges=yes
+CapabilityBoundingSet=
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+ReadWritePaths=/srv/data/drive /srv/data/.uploads /srv/data/.trash
+ReadWritePaths=/var/lib/filedrive /var/cache/filedrive
+Nice=10
+IOSchedulingClass=idle

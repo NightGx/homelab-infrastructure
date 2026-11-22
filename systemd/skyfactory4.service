@@ -1,0 +1,14 @@
+[Unit]
+Description=Minecraft Server - SkyFactory 4 (1.12.2)
+After=network.target
+
+[Service]
+User=thomas
+Group=thomas
+WorkingDirectory=/opt/skyfactory4
+ExecStart=/bin/bash /opt/skyfactory4/ServerStart.sh
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

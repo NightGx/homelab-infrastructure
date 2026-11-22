@@ -1,0 +1,53 @@
+[Unit]
+Description=filedrive — self-hosted file manager
+Documentation=file:///opt/filedrive/README.md
+After=network-online.target srv-data.mount
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=filedrive
+Group=filedrive
+WorkingDirectory=/opt/filedrive
+EnvironmentFile=/etc/filedrive/filedrive.env
+ExecStart=/usr/local/bin/node --disable-warning=ExperimentalWarning /opt/filedrive/src/server.js
+Restart=on-failure
+RestartSec=3
+
+NoNewPrivileges=yes
+CapabilityBoundingSet=
+AmbientCapabilities=
+RestrictSUIDSGID=yes
+LockPersonality=yes
+RestrictNamespaces=yes
+RestrictRealtime=yes
+SystemCallArchitectures=native
+SystemCallFilter=@system-service
+SystemCallFilter=~@privileged @resources @obsolete
+
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectKernelLogs=yes
+ProtectControlGroups=yes
+ProtectClock=yes
+ProtectHostname=yes
+ProtectProc=invisible
+DevicePolicy=closed
+ReadWritePaths=/srv/data
+ReadWritePaths=/var/lib/filedrive /var/cache/filedrive
+
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+IPAddressAllow=localhost
+IPAddressDeny=any
+
+MemoryMax=1500M
+MemoryHigh=1200M
+TasksMax=256
+CPUQuota=500%
+
+[Install]
+WantedBy=multi-user.target

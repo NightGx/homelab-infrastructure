@@ -1,0 +1,21 @@
+[Unit]
+Description=n8n-stack service (migrated from /home/thomas/n8n-stack)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+WorkingDirectory=/opt/n8n-stack
+ExecStart=/usr/bin/docker compose -f /opt/n8n-stack/docker-compose.yml up --remove-orphans
+Restart=on-failure
+RestartSec=5
+UMask=0027
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/opt/n8n-stack
+
+[Install]
+WantedBy=multi-user.target

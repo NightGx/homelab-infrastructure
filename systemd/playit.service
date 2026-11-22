@@ -1,0 +1,13 @@
+[Unit]
+Description=Playit.gg Agent
+After=network.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/opt/playit/playitd
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

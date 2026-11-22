@@ -1,0 +1,47 @@
+[Unit]
+Description=Minecraft server (PaperMC)
+Documentation=https://docs.papermc.io/
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=minecraft
+Group=minecraft
+WorkingDirectory=/opt/minecraft
+EnvironmentFile=/etc/default/minecraft
+ExecStart=/usr/lib/jvm/java-25-openjdk-amd64/bin/java $MC_HEAP $MC_FLAGS -jar /opt/minecraft/paper.jar --nogui
+
+KillSignal=SIGTERM
+KillMode=mixed
+TimeoutStopSec=180
+Restart=on-failure
+RestartSec=10
+
+NoNewPrivileges=yes
+CapabilityBoundingSet=
+AmbientCapabilities=
+RestrictSUIDSGID=yes
+LockPersonality=yes
+RestrictNamespaces=yes
+RestrictRealtime=yes
+SystemCallArchitectures=native
+
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+ProtectClock=yes
+ProtectHostname=yes
+ReadWritePaths=/opt/minecraft
+
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX AF_NETLINK
+
+MemoryMax=8G
+MemoryAccounting=yes
+
+[Install]
+WantedBy=multi-user.target

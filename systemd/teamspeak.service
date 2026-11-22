@@ -1,0 +1,48 @@
+[Unit]
+Description=TeamSpeak 3 server
+Documentation=https://support.teamspeak.com/
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=teamspeak
+Group=teamspeak
+WorkingDirectory=/opt/teamspeak
+ExecStart=/opt/teamspeak/ts3server \
+    license_accepted=1 \
+    default_voice_port=9987 \
+    filetransfer_port=30033 \
+    query_port=10011 \
+    query_protocols=raw \
+    query_ip=127.0.0.1 \
+    logpath=/var/log/teamspeak
+Restart=on-failure
+RestartSec=10
+TimeoutStopSec=45
+
+NoNewPrivileges=yes
+CapabilityBoundingSet=
+AmbientCapabilities=
+RestrictSUIDSGID=yes
+LockPersonality=yes
+RestrictNamespaces=yes
+RestrictRealtime=yes
+SystemCallArchitectures=native
+
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+ReadWritePaths=/opt/teamspeak /var/log/teamspeak
+
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX AF_NETLINK
+
+MemoryMax=1G
+MemoryAccounting=yes
+
+[Install]
+WantedBy=multi-user.target
